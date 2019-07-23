@@ -1,0 +1,43 @@
+---
+- job:
+    name: delorean-sample-product/discovery
+    display-name: 'sample-product-ga-discovery'
+    project-type: pipeline
+    concurrent: false
+    triggers:
+      - timed: '@daily'
+    parameters:
+      - string:
+          name: 'installationGitUrl'
+          default: 'git@github.com:JameelB/example-installation.git'
+          description: '[REQUIRED] The manifest variable to be used as the current component version'
+          read-only: true
+      - string:
+          name: 'productVersionVar'
+          default: 'sample_product_version'
+          description: '[REQUIRED] The manifest variable to be used as the current component version'
+          read-only: true
+      - string:
+          name: 'projectOrg'
+          default: 'JameelB'
+          description: '[REQUIRED] github project organization'
+          read-only: true
+      - string:
+          name: 'projectRepo'
+          default: 'sample-product'
+          description: '[REQUIRED] github project repository'
+          read-only: true
+      - string:
+          name: 'productName'
+          default: 'sample-product'
+          description: '[REQUIRED] Product to check, this affects the way the job verifies if a new version is available'
+          read-only: true
+    pipeline-scm:
+      script-path: jobs/delorean/jenkinsfiles/discovery/ga/github/Jenkinsfile
+      scm:
+        - git:
+            branches:
+              - master
+            url: 'https://github.com/integr8ly/ci-cd.git'
+            skip-tag: true
+            wipe-workspace: false
