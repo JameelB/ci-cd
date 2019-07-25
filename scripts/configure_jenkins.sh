@@ -17,8 +17,9 @@ generate_inline_script_job() {
 rm -rf $SCRIPTS_DIR/../jobs/generated/*
 
 #Delorean Jobs
-generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/sample-product/discovery.yaml
-generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/sample-product/branch.yaml
+generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/misc/github-events/github-events.yaml
+generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/sample-product/ga/discovery.yaml
+generate_inline_script_job $SCRIPTS_DIR/../jobs/delorean/sample-product/ga/branch.yaml
 
 #Delorean Folders
 jenkins-jobs --conf $CONFIG update $SCRIPTS_DIR/../jobs/delorean/folders.yaml

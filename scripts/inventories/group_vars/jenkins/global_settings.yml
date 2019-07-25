@@ -9,7 +9,7 @@ ansible_tower_installations:
 
 # AWS SQS Configuration
 aws_sqs_queues:
-  - nameOrUrl: ""                             # Name or url of your message queue in AWS SQS
+  - nameOrUrl: "https://sqs.eu-west-1.amazonaws.com/225726651034/delorean-demo-github-wh-queue.fifo"                             # Name or url of your message queue in AWS SQS
     credentialsId: "aws-jenkins-integreatly"  # Credential ID where the AWS client ID/token is stored
     waitTimeSeconds: "20"                     # Time to wait for a message to arrive in the queue (in seconds)
     maxNumberOfMessages: "1"                  # Maximum number of messages to receive per request

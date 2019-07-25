@@ -1,8 +1,19 @@
 ---
 
-# 3Scale
+# Sample Product
 - job:
     name: delorean-sample-product
     description: 'A sample product for demonstrating release discovery'
     display-name: 'sample-product'
+    project-type: folder
+
+- job:
+    name: delorean-sample-product/ga
+    display-name: 'GA'
+    project-type: folder
+
+# Misc
+- job:
+    name: delorean-misc
+    display-name: 'Misc'
     project-type: folder

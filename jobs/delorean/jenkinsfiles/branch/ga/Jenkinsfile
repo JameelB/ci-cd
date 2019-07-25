@@ -41,8 +41,8 @@ def createJiraBody(summary, gitPrUrl, labels) {
   }"""
 }
 
-def ghOwner = "integr8ly"
-def ghRepo = "installation"
+def ghOwner = "jameelb"
+def ghRepo = "example-installation"
 def installationGitUrl = params.installationGitUrl ?: 'git@github.com:integr8ly/installation.git'
 def sourceBranch = params.installationProductBranch
 def targetBranch = 'master'
@@ -88,6 +88,8 @@ node {
                 String title = "[WIP] ${productName} update"
                 String body = "Created automatically by jenkins"
 
+                println "creating PR"
+
                 if (dryRun) {
                     println "Finds an open pull request with the base branch '${sourceBranch}'. If this does not exist, it creates a new pull request with the following details:\ntitle:'${title}',\nbody '${body}',\nlabels:${defaultPRLabels}"
                     prUrl = "https://github.com/example-pr-url"
@@ -99,43 +101,6 @@ node {
                 
                 println "Component Update PR = ${prUrl}, runIntegrationTests = ${runIntegrationTests}"
             }
-        }
-    }
-
-    stage('Create Jira Update Issue') {
-        when(sourceChanges && jiraUserPass) {
-            String[] labels = [
-              /"product-update"/,
-              /"${productName}"/
-            ]
-            String summary = "Update ${productName}"
-
-            String query = createJiraQuery(labels)
-            def body = createJiraBody(summary, prUrl, labels)
-
-            def jiraID = jiraCreateIssue(jiraUserPass, jiraRestApiUrl, query, body)
-            println "[INFO] Issue created: https://issues.jboss.org/browse/${jiraID}"
-        }
-    }
-
-    stage('Create Jira Upgrade Issue') {
-        when(sourceChanges && jiraUserPass) {
-            dir('installation') {
-                sh "git checkout ${targetBranch}"
-                currentProductVersion = getProductVersionFromManifest(productVersionVar, installationManifestFile)
-            }
-
-            String[] labels = [
-              /"product-upgrade"/,
-              /"${productName}"/
-            ]
-            String summary = "Add upgrade sop or playbook for ${productName}"
-
-            String query = createJiraQuery(labels)
-            def body = createJiraBody(summary, prUrl, labels)
-            
-            def jiraID = jiraCreateIssue(jiraUserPass, jiraRestApiUrl, query, body)
-            println "[INFO] Issue created: https://issues.jboss.org/browse/${jiraID}"
         }
     }
 

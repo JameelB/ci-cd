@@ -1,6 +1,6 @@
 ---
 - job:
-    name: delorean-sample-product/branch
+    name: delorean-sample-product/ga/branch
     display-name: 'sample-product-ga-branch'
     project-type: pipeline
     concurrent: false
