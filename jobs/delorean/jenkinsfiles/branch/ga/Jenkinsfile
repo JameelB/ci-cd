@@ -55,7 +55,7 @@ boolean dryRun = params.dryRun
 String prUrl
 final String ghCommitStatusContext = 'delorean/integration-tests'
 String integrationTestsGHLabel = "integration tests"
-def jiraUserPass = params.jiraUserPass ?: 'integreatly-jira-bot'
+def jiraUserPass = params.jiraUserPass
 def productVersionVar = params.productVersionVar
 def productVersion
 String[] defaultPRLabels = ["product update", productName]
@@ -103,7 +103,7 @@ node {
     }
 
     stage('Create Jira Update Issue') {
-        when(sourceChanges) {
+        when(sourceChanges && jiraUserPass) {
             String[] labels = [
               /"product-update"/,
               /"${productName}"/
@@ -119,7 +119,7 @@ node {
     }
 
     stage('Create Jira Upgrade Issue') {
-        when(sourceChanges) {
+        when(sourceChanges && jiraUserPass) {
             dir('installation') {
                 sh "git checkout ${targetBranch}"
                 currentProductVersion = getProductVersionFromManifest(productVersionVar, installationManifestFile)
