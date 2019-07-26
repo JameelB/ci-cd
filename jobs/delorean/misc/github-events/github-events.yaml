@@ -9,7 +9,7 @@
         xml: |
           <io.relution.jenkins.awssqs.SQSTrigger plugin="aws-sqs@2.0.1">
             <spec></spec>
-            <queueUuid>86ae1015-cb49-4bd9-99de-b264a9df328c</queueUuid>
+            <queueUuid>637e7923-fbe7-4d87-a974-ac32e3170486</queueUuid>
           </io.relution.jenkins.awssqs.SQSTrigger>
     pipeline-scm:
       script-path: jobs/delorean/misc/github-events/Jenkinsfile
